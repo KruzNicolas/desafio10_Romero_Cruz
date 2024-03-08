@@ -165,14 +165,14 @@ Response:
 
 ### Complete a purchase
 
-To complete a purchase use a `api/carts/<cartId>` endpoint and add `CartId`
+To complete a purchase use a `api/carts/<cartId>/purchase` endpoint and add `CartId`
 
 Request:
 
 Request:
 
 ```
-[POST] localhost:8080/api/carts/65e6c5e90e66f04d3ae50bc6
+[POST] localhost:8080/api/carts/purchase/65e6c5e90e66f04d3ae50bc6
 ```
 
 Response:

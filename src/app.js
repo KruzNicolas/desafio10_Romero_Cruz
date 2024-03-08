@@ -6,6 +6,8 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import cors from "cors";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 import productsRouter from "./routes/products.routes.js";
 import cartsRouter from "./routes/carts.routes.js";
@@ -34,6 +36,20 @@ try {
       methods: "GET, POST, PUT, DELETE",
     })
   );
+
+  const swaggerOptions = {
+    definition: {
+      openapi: "3.0.1",
+      info: {
+        title: "Swagger documentation for Video-games Fake Store API",
+        description:
+          "This documentation it's about API Video-games Fake Store API",
+      },
+    },
+    apis: ["./src/docs/**/*.yaml"],
+  };
+
+  const specs = swaggerJsdoc(swaggerOptions);
 
   // Session
   app.use(
@@ -64,6 +80,7 @@ try {
   app.use("/api/carts", cartsRouter);
   app.use("/api/sessions", sessionRouter);
   app.use("/api/users", userRouter);
+  app.use("/api/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
   app.use("/mock", mocksRouter);
 
   // Logger Endpoint test
